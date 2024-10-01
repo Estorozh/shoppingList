@@ -74,11 +74,11 @@ bot.onText(/\/clear_list/, (msg) => {
     bot.sendMessage(chatId, 'Список покупок очищен.');
 });
 
-bot.on('message', (msg) => {
-    const chatId = msg.chat.id;
+// bot.on('message', (msg) => {
+//     const chatId = msg.chat.id;
 
-    // Игнорируем команды, остальные сообщения обрабатываются как непонятые
-    if (msg.text.startsWith('/')) {
-        bot.sendMessage(chatId, 'Неизвестная команда. Используйте /show_list, /add, /delete или /clear_list.');
-    }
-});
+//     // Игнорируем команды, остальные сообщения обрабатываются как непонятые
+//     if (msg.text.startsWith('/')) {
+//         bot.sendMessage(chatId, 'Неизвестная команда. Используйте /show_list, /add, /delete или /clear_list.');
+//     }
+// });
