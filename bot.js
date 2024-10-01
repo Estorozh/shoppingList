@@ -51,11 +51,11 @@ bot.onText(/\/delete/, (msg) => {
     const chatId = msg.chat.id;
 
     bot.sendMessage(chatId, `Введите номера продуктов для удаления через пробел:
-        ${[...shoppingList].map((item, index) => `${index+1} ${item}`).join('\n')}`).then(() => {
+${[...shoppingList].map((item, index) => `${index+1} ${item}`).join('\n')}`).then(() => {
         bot.once('message', (msg) => {
             const idsProductToRemove = msg.text.split(' ');
 
-            const shouldDeleting = idsProductToRemove.map((id) => shoppingList[id - 1])
+            const shouldDeleting = idsProductToRemove.map((id) => shoppingList[+id - 1])
 
             shoppingList = shoppingList.filter((itemShoppingList) => {
                 const hasProductToRemove = productsToRemove.find((itemToRemove) => itemShoppingList.includes(itemToRemove))
