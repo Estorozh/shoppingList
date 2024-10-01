@@ -30,7 +30,7 @@ bot.onText(/\/show_list/, (msg) => {
     if (shoppingList.length === 0) {
         bot.sendMessage(chatId, 'Список покупок пуст.');
     } else {
-        const list = shoppingList.join('\n');
+        const list = [...shoppingList].map((item, index) => `${index+1} ${item}`).join('\n');
         bot.sendMessage(chatId, `Ваш список покупок:\n${list}`);
     }
 });
@@ -50,19 +50,19 @@ bot.onText(/\/add/, (msg) => {
 bot.onText(/\/delete/, (msg) => {
     const chatId = msg.chat.id;
 
-    bot.sendMessage(chatId, 'Введите продукты для удаления через Enter:').then(() => {
+    bot.sendMessage(chatId, `Введите номера продуктов для удаления через пробел:
+        ${[...shoppingList].map((item, index) => `${index+1} ${item}`).join('\n')}`).then(() => {
         bot.once('message', (msg) => {
-            const productsToRemove = msg.text.split('\n').map(item => item.trim()).filter(item => item !== '');
+            const idsProductToRemove = msg.text.split(' ');
 
-            const shouldDeleting = []
-            shoppingList = shoppingList.filter(itemShoppingList => {
-                const productToRemove = productsToRemove.find((itemToRemove) => itemShoppingList.toLowerCase().includes(itemToRemove.toLowerCase()))
+            const shouldDeleting = idsProductToRemove.map((id) => shoppingList[id - 1])
 
-                if(!productToRemove) return true
+            shoppingList = shoppingList.filter((itemShoppingList) => {
+                const hasProductToRemove = productsToRemove.find((itemToRemove) => itemShoppingList.includes(itemToRemove))
 
-                shouldDeleting.push(itemShoppingList)
-                return false
+                return !hasProductToRemove
             });
+
             bot.sendMessage(chatId, `Удалены продукты:\n${shouldDeleting.join('\n')}`);
         });
     });
