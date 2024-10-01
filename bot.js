@@ -58,7 +58,7 @@ ${[...shoppingList].map((item, index) => `${index+1} ${item}`).join('\n')}`).the
             const shouldDeleting = idsProductToRemove.map((id) => shoppingList[+id - 1])
 
             shoppingList = shoppingList.filter((itemShoppingList) => {
-                const hasProductToRemove = productsToRemove.find((itemToRemove) => itemShoppingList.includes(itemToRemove))
+                const hasProductToRemove = shouldDeleting.find((itemToRemove) => itemShoppingList.includes(itemToRemove))
 
                 return !hasProductToRemove
             });
