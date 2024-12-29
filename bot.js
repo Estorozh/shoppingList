@@ -85,7 +85,7 @@ function getOptions() {
     return {
         reply_markup: {
             inline_keyboard: shoppingList.map((item, index) => [
-                { text: `${selectedProducts.includes(index) ? '✔️' : ''} ${item}`, callback_data: `${COMMANDS.TOGGLE}_${index}` }
+                { text: `${selectedProducts.includes(index) ? '❌' : ''} ${item}`, callback_data: `${COMMANDS.TOGGLE}_${index}` }
             ]).concat([[{ text: "Удалить выбранные", callback_data: COMMANDS.DELETE_SELECTED }]])
         }
     };
